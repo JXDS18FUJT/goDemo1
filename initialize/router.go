@@ -15,6 +15,7 @@ func InitRouter(r *gin.Engine) {
 
 	{
 		router.V1Router(PublicGroup)
+		router.BannerRouter(PublicGroup)
 		router.LoginRouter(PublicGroup)
 		router.NongRouter(PublicGroup)
 		router.WssRouter(PublicGroup)
