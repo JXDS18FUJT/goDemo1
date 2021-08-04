@@ -1,15 +1,18 @@
 package model
 
 import (
+	"347613781qq.com/demo1/common/diymodel"
 	"347613781qq.com/demo1/dao"
 )
 
 //设置主键
 type Banner struct {
-	BannerId int    `gorm:"json:banner_id;primary_key" form:"banner_id"`
-	Name     string `gorm:"json:name" form:"name"`
-	Desc     string `gorm:"json:desc" form:"desc"`
-	Url      string `gorm:"json:url" form:"url"`
+	BannerId    int            `gorm:"json:banner_id;primary_key" form:"banner_id" json:"banner_id"`
+	Name        string         `gorm:"json:name" form:"name" json:"name" validate:"required"`
+	Desc        string         `gorm:"json:desc" form:"desc" json:"desc" validate:"required"`
+	Url         string         `gorm:"json:url" form:"url" json:"url" validate:"required,email"`
+	UpdateTime  diymodel.XTime `json:"update_time"`
+	Insert_Time diymodel.XTime `json:"insert_time"`
 }
 
 func CreateBanner(banner *Banner) (err error) {
