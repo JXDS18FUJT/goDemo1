@@ -19,6 +19,7 @@ func InitRouter(r *gin.Engine) {
 		router.LoginRouter(PublicGroup)
 		router.NongRouter(PublicGroup)
 		router.WssRouter(PublicGroup)
+		router.RecomGameRouter(PublicGroup)
 
 	}
 

@@ -4,18 +4,17 @@ import (
 	"fmt"
 
 	"347613781qq.com/demo1/model"
-
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"gopkg.in/go-playground/validator.v9"
 )
 
-func BannerAdd(c *gin.Context) {
-	var Banner model.Banner
-	c.ShouldBind(&Banner)
-	err := model.CreateBanner(&Banner)
+func RecomGameAdd(c *gin.Context) {
+	var RecomGame model.RecomGame
+	c.ShouldBind(&RecomGame)
+	err := model.CreateRecomGame(&RecomGame)
 	var validate = validator.New()
-	err1 := validate.Struct(&Banner)
+	err1 := validate.Struct(&RecomGame)
 	if err1 != nil {
 		c.JSON(200, gin.H{
 			"message": err1.Error(),
@@ -38,18 +37,18 @@ func BannerAdd(c *gin.Context) {
 	})
 }
 
-func BannerUpdate(c *gin.Context) {
-	var Banner model.Banner
-	c.ShouldBind(&Banner)
-	if Banner.BannerId <= 0 {
+func RecomGameUpdate(c *gin.Context) {
+	var RecomGame model.RecomGame
+	c.ShouldBind(&RecomGame)
+	if RecomGame.RecomGameId <= 0 {
 		c.JSON(200, gin.H{
-			"message": "缺少部分参数banner_id",
+			"message": "缺少部分参数RecomGame_id",
 			"code":    "400",
 		})
 		return
 
 	}
-	err := model.UpdateBanner(&Banner, Banner.BannerId)
+	err := model.UpdateRecomGame(&RecomGame, RecomGame.RecomGameId)
 	if err != nil {
 		c.JSON(200, gin.H{
 			"message": "失败",
@@ -63,10 +62,10 @@ func BannerUpdate(c *gin.Context) {
 	})
 }
 
-func BannerDel(c *gin.Context) {
-	var Banner model.Banner
-	c.ShouldBind(&Banner)
-	err := model.DeleteBanner(Banner.BannerId)
+func RecomGameDel(c *gin.Context) {
+	var RecomGame model.RecomGame
+	c.ShouldBind(&RecomGame)
+	err := model.DeleteRecomGame(RecomGame.RecomGameId)
 	if err != nil {
 		c.JSON(200, gin.H{
 			"message": "失败",
@@ -79,12 +78,12 @@ func BannerDel(c *gin.Context) {
 		"code":    "200",
 	})
 }
-func BannerGet(c *gin.Context) {
+func RecomGameGet(c *gin.Context) {
 	var emptyData = make([]string, 0)
-	var resData = make([]model.Banner, 1, 30)
-	var Banner model.Banner
-	c.ShouldBind(&Banner)
-	Banner, err := model.GetBanner(Banner.BannerId)
+	var resData = make([]model.RecomGame, 1, 30)
+	var RecomGame model.RecomGame
+	c.ShouldBind(&RecomGame)
+	RecomGame, err := model.GetRecomGame(RecomGame.RecomGameId)
 	fmt.Print(err)
 	if err != nil {
 		if gorm.IsRecordNotFoundError(err) {
@@ -103,7 +102,7 @@ func BannerGet(c *gin.Context) {
 
 		return
 	}
-	resData[0] = Banner
+	resData[0] = RecomGame
 	c.JSON(200, gin.H{
 		"message": "成功",
 		"code":    "200",
