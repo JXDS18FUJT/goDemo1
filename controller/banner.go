@@ -7,23 +7,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 func BannerAdd(c *gin.Context) {
 	var Banner model.Banner
 	c.ShouldBind(&Banner)
 	err := model.CreateBanner(&Banner)
-	var validate = validator.New()
-	err1 := validate.Struct(&Banner)
-	if err1 != nil {
-		c.JSON(200, gin.H{
-			"message": err1.Error(),
-			"code":    "400",
-		})
-		return
-
-	}
 
 	if err != nil {
 		c.JSON(200, gin.H{
@@ -32,6 +21,7 @@ func BannerAdd(c *gin.Context) {
 		})
 		return
 	}
+
 	c.JSON(200, gin.H{
 		"message": "成功",
 		"code":    "200",

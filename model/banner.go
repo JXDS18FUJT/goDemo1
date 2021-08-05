@@ -9,7 +9,7 @@ import (
 type Banner struct {
 	BannerId    int            `gorm:"json:banner_id;primary_key" form:"banner_id" json:"banner_id"`
 	Name        string         `gorm:"json:name" form:"name" json:"name" validate:"required"`
-	Desc        string         `gorm:"json:desc" form:"desc" json:"desc" validate:"empty" name:"描述"`
+	Desc        string         `gorm:"json:desc" form:"desc" json:"desc" name:"描述"`
 	Url         string         `gorm:"json:url" form:"url" json:"url" validate:"required,email"`
 	UpdateTime  diymodel.XTime `json:"update_time" gorm:"default:null"`
 	Insert_Time diymodel.XTime `json:"insert_time" gorm:"default:null"`
