@@ -6,6 +6,7 @@ import (
 
 	"347613781qq.com/demo1/dao"
 	"347613781qq.com/demo1/initialize"
+	"347613781qq.com/demo1/middlewares"
 	"347613781qq.com/demo1/model"
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
@@ -25,8 +26,7 @@ func main() {
 	//将所有死机记录到错误日志中
 	//stack表示是否输出堆栈信息。
 	r.Use(ginzap.RecoveryWithZap(logger, true))
-	//跨域的相关配置
-	// r.Use(middlewares.Cors())
+
 	//读取相关的配置
 	initialize.InitSetting()
 	//挂载路由
@@ -35,6 +35,7 @@ func main() {
 		fmt.Printf("load config from file failed, err:%v\n", err)
 		return
 	}
+
 	//初始化mysql
 	err := dao.InitMySQL(initialize.Conf.MysqlConf.User, initialize.Conf.MysqlConf.Password, initialize.Conf.MysqlConf.Host, initialize.Conf.MysqlConf.Port, initialize.Conf.MysqlConf.Db)
 	if err != nil {
@@ -45,6 +46,8 @@ func main() {
 	dao.DB.SingularTable(true)
 	// 模型绑定
 	dao.DB.AutoMigrate(&model.Nong{})
+	//跨域的相关配置
+	r.Use(middlewares.Cors())
 
 	r.Run(fmt.Sprintf(":%d", initialize.Conf.Port))
 	//关闭mysql

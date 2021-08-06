@@ -10,6 +10,7 @@ func V1Router(Router *gin.RouterGroup) {
 	{
 
 		v1Group.POST("/test", controller.V1Test)
+		v1Group.POST("/test2", controller.V1Test2)
 
 	}
 
